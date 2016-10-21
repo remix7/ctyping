@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.cynara.ctyping.entitiy.mapper.QuestionMapper">
+	<cache />
+	<insert id="insert" parameterType="Question">
+		INSERT INTO
+		ctyping_questions(title,content,degree,contentLength,createTime,state,remarks)
+		VALUES
+		(#{title},#{content},#{degree},#{contentLength},#{createTime},#{state},#{remarks})
+	</insert>
+	<delete id="delete" parameterType="int">
+		DELETE FROM ctyping_questions
+		WHERE id=#{id}
+	</delete>
+	<update id="update" parameterType="Question">
+		UPDATE ctyping_questions SET
+		title=#{title},content=#{content},degree=#{degree},contentLength=#{contentLength},createTime=#{createTime},state=#{state},remarks=#{remarks}
+		WHERE id=${id}
+	</update>
+	<select id="findById" parameterType="int" resultType="Question">
+		SELECT *
+		FROM ctyping_questions WHERE id=#{id}
+	</select>
+	<select id="findAll" resultType="Question">
+		SELECT * FROM ctyping_questions
+	</select>
+
+</mapper>

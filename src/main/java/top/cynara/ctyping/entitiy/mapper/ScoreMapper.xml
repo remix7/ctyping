@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.cynara.ctyping.entitiy.mapper.ScoreMapper">
+	<cache />
+	<resultMap type="Score" id="baseResultMap">
+		<id property="id" column="id" />
+		<result property="content" column="content" />
+		<result property="useTime" column="useTime" />
+		<result property="score" column="score" />
+		<result property="accuracy" column="accuracy" />
+		<result property="ranking" column="ranking" />
+		<result property="createTime" column="createTime" />
+		<result property="state" column="state" />
+		<result property="remarks" column="remarks" />
+		<association property="user" javaType="User">
+			<id property="id" column="id" />
+			<result property="realname" column="realname"/>
+			<result property="stuNum" column="stuNum"/>
+		</association>
+		<association property="exam" javaType="Exam">
+			<id property="id" column="id"/>
+			<result property="name" column="name"/>
+		</association>
+	</resultMap>
+	<insert id="insert" parameterType="Score">
+		INSERT INTO
+		ctyping_scores(exam_id,user_id,content,useTime,score,accuracy,ranking,createTime,state,remarks)
+		VALUES
+		(#{exam.id},#{user.id},#{content},#{useTime},#{score},#{accuracy},#{ranking},#{createTime},#{state},#{remarks})
+	</insert>
+	<delete id="delete" parameterType="int">
+		DELETE FROM ctyping_scores
+		WHERE id=#{id}
+	</delete>
+	<update id="update" parameterType="Score">
+		UPDATE ctyping_scores SET
+		exam_id=#{exam.id},user_id=#{user.id},content=#{content},useTime=#{useTime},score=#{score},accuracy=#{accuracy},ranking=#{ranking},createTime=#{createTime},state=#{state},remarks=#{remarks}
+		WHERE id=${id}
+	</update>
+	<select id="findById" parameterType="int" resultMap="baseResultMap">
+		SELECT *
+		FROM ctyping_scores cs,ctyping_exams ce,ctyping_users cu WHERE
+		cs.exam_id=ce.id AND cs.user_id=cu.id AND id=#{id}
+	</select>
+	<select id="findAll" resultMap="baseResultMap">
+		SELECT * FROM ctyping_scores
+		cs,ctyping_exams ce,ctyping_users cu WHERE cs.exam_id=ce.id AND
+		cs.user_id=cu.id
+	</select>
+
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.cynara.ctyping.entitiy.mapper.UserMapper">
+	<cache />
+	<insert id="insert" parameterType="User">
+		INSERT INTO
+		ctyping_users(username,password,realname,stuNum,phoneNum,email,createTime,state,remarks)
+		VALUES
+		(#{username},#{password},#{realname},#{stuNum},#{phoneNum},#{email},#{createTime},#{state},#{remarks})
+	</insert>
+	<delete id="delete" parameterType="int">
+		DELETE FROM ctyping_users
+		WHERE id=#{id}
+	</delete>
+	<update id="update" parameterType="User">
+		UPDATE ctyping_users SET
+		username=#{username},password=#{password},realname=#{realname},stuNum=#{stuNum},phoneNum=#{phoneNum},email=#{email},createTime=#{createTime},state=#{state},remarks=#{remarks}
+		WHERE id=${id}
+	</update>
+	<select id="findById" parameterType="int" resultType="User">
+		SELECT *
+		FROM ctyping_users WHERE id=#{id}
+	</select>
+	<select id="findAll" resultType="User">
+		SELECT * FROM ctyping_users
+	</select>
+
+</mapper>

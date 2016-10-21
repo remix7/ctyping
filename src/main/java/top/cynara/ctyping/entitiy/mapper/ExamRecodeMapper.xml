@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.cynara.ctyping.entitiy.mapper.ExamRecodeMapper">
+	<cache />
+	<resultMap type="ExamRecode" id="baseResultMap">
+		<id property="id" column="id" />
+		<result property="content" column="content" />
+		<result property="useTime" column="useTime" />
+		<result property="updateTime" column="updateTime" />
+		<result property="state" column="state" />
+		<result property="remarks" column="remarks" />
+		<association property="exam" javaType="Exam">
+			<id property="id" column="id" />
+			<result property="name" column="name" />
+		</association>
+		<association property="user" javaType="User">
+			<id property="id" column="id" />
+			<result property="realname" column="realname" />
+		</association>
+	</resultMap>
+	<insert id="insert" parameterType="ExamRecode">
+		INSERT INTO
+		ctyping_exam_recodes(exam_id,user_id,content,useTime,updateTime,state,remarks)
+		VALUES
+		(#{exam.id},#{user.id},#{content},#{useTime},#{updateTime},#{state},#{remarks})
+	</insert>
+	<delete id="delete" parameterType="int">
+		DELETE FROM
+		ctyping_exam_recodes
+		WHERE id=#{id}
+	</delete>
+	<update id="update" parameterType="ExamRecode">
+		UPDATE ctyping_exam_recodes
+		SET
+		ExamRecodename=#{ExamRecodename},password=#{password},realname=#{realname},stuNum=#{stuNum},phoneNum=#{phoneNum},email=#{email},createTime=#{createTime},state=#{state},remarks=#{remarks}
+		WHERE id=${id}
+	</update>
+	<select id="findById" parameterType="int" resultMap="baseResultMap">
+		SELECT *
+		FROM ctyping_exam_recodes cer,ctyping_exams ce,ctyping_users cu WHERE
+		cer.exam_id=ce.id AND cer.user_id=cu.id AND cer.id=#{id}
+	</select>
+	<select id="findAll" resultMap="baseResultMap">
+		SELECT * FROM
+		ctyping_exam_recodes cer,ctyping_exams ce,ctyping_users cu WHERE
+		cer.exam_id=ce.id AND cer.user_id=cu.id
+	</select>
+
+</mapper>
