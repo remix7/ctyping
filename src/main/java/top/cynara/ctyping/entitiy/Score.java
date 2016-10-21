@@ -1,5 +1,8 @@
 package top.cynara.ctyping.entitiy;
 
+import java.io.Serializable;
+import java.util.Date;
+
 /**
  * @ClassName Score
  * @Description 成绩bean
@@ -7,8 +10,9 @@ package top.cynara.ctyping.entitiy;
  * @date 2016年10月21日 上午12:04:35
  * @version V1.0
  */
-public class Score {
+public class Score implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	private Integer id;
 	/*
 	 * 对应的考卷
@@ -41,6 +45,7 @@ public class Score {
 	/*
 	 * 状态
 	 */
+	private Date createTime;
 	private String state;
 	/*
 	 * 备注
@@ -125,6 +130,14 @@ public class Score {
 
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 
 }
