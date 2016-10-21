@@ -10,8 +10,8 @@ import java.util.Date;
  * @date 2016年10月20日 下午11:47:33
  * @version V1.0
  */
-public class User implements Serializable{
-	
+public class User implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	/*
