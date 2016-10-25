@@ -4,9 +4,16 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import top.cynara.ctyping.entitiy.ActiveUser;
+import top.cynara.ctyping.entitiy.User;
+import top.cynara.ctyping.service.UserService;
 
 /**
  * 
@@ -17,39 +24,33 @@ import org.apache.shiro.subject.PrincipalCollection;
  * @version V1.0
  */
 public class UserRealm extends AuthorizingRealm {
-//	@Autowired
-//	private RegisterUserService rUserService;
-//	@Autowired
-//	private ActiveUserService aUserService;
-
+	@Autowired
+	private UserService userService;
 	/**
 	 * 用于认证
 	 */
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-		// 从token中提取出用户信息
-//		String subjectCode = (String) token.getPrincipal();
+//		 从token中提取出用户信息
+		String subjectCode = (String) token.getPrincipal();
 //		// 根据用户id像数据库查询用户
-////		RegisterUser registerUser = rUserService.findByUserCode(subjectCode);
+		User user = userService.findByUserName(subjectCode);
 //		// 如果不存在就直接返回null
-//		if (registerUser == null) {
-//			return null;
-//		}
-//		String password = registerUser.getPassword();
-//		String salt = registerUser.getSalt();
-//		ActiveUser activeUser = new ActiveUser();
-//		activeUser.setUserid(registerUser.getId());
-//		activeUser.setUsercode(subjectCode);
-//		activeUser.setUsername(registerUser.getUsername());
-//		// activeUser.setMenus(aUserService.findAllMenuBySysUserId(registerUser.getId()));
-//		// 如果查询到返回 AuthenticationInfo
-//		// 将activeUser设置到SimpleAuthenticationInfo
+		if (user == null) {
+			return null;
+		}
+		String password = user.getPassword();
+		String salt = user.getUsername();
+		ActiveUser activeUser = new ActiveUser();
+		activeUser.setId(user.getId());
+		activeUser.setRealname(user.getRealname());
+		activeUser.setStuNum(user.getStuNum());
+		activeUser.setUsername(user.getUsername());
 //		// ByteSource.Util.bytes(new StringBuffer(salt).reverse().toString())
 //		// 盐反转
-//		AuthenticationInfo info = new SimpleAuthenticationInfo(activeUser, password,
-//				ByteSource.Util.bytes(new StringBuffer(salt).reverse().toString()), "rn");
-//		// 查询不到返回null
-//		return info;
-		return null;
+		AuthenticationInfo info = new SimpleAuthenticationInfo(activeUser, password,
+				ByteSource.Util.bytes(new StringBuffer(salt).reverse().toString()), "rn");
+		// 查询不到返回null
+		return info;
 	}
 
 	/**
