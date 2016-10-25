@@ -1,7 +1,9 @@
 package top.cynara.ctyping.entitiy;
 
 import java.io.Serializable;
-import java.util.Date;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * @ClassName User
@@ -17,34 +19,43 @@ public class User implements Serializable {
 	/*
 	 * 用户名
 	 */
+	@NotEmpty
 	private String username;
 	/*
 	 * 密码
 	 */
+	@NotEmpty
+	@Length(min = 6, max = 18)
 	private String password;
 	/*
 	 * 真实姓名
 	 */
+	@NotEmpty
 	private String realname;
 	/*
 	 * 学号
 	 */
+	@NotEmpty
 	private String stuNum;
 	/*
 	 * 手机号
 	 */
+	@NotEmpty
+	@Length(max = 12, min = 10)
 	private String phoneNum;
 	/*
 	 * 邮箱
 	 */
+	@NotEmpty
 	private String email;
 	/*
 	 * 创建时间
 	 */
-	private Date createTime;
+	private String createTime;
 	/*
 	 * 状态
 	 */
+	@NotEmpty
 	private String state;
 	/*
 	 * 备注
@@ -107,11 +118,11 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public Date getCreateTime() {
+	public String getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
 
