@@ -1,7 +1,13 @@
 package top.cynara.ctyping.entitiy;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * @ClassName Exam
@@ -10,21 +16,24 @@ import java.util.Date;
  * @date 2016年10月20日 下午11:57:33
  * @version V1.0
  */
-public class Exam implements Serializable{
+public class Exam implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	/*
 	 * 名称
 	 */
+	@NotEmpty
 	private String name;
 	/*
 	 * 开始时间
 	 */
-	private Date beginTime;
+	@NotEmpty
+	private String beginTime;
 	/*
 	 * 结束时间
 	 */
-	private Date endTime;
+	@NotEmpty
+	private String endTime;
 	/*
 	 * 对应的考题
 	 */
@@ -32,7 +41,7 @@ public class Exam implements Serializable{
 	/*
 	 * 创建时间
 	 */
-	private Date createTime;
+	private String createTime;
 	/*
 	 * 状态
 	 */
@@ -58,19 +67,19 @@ public class Exam implements Serializable{
 		this.name = name;
 	}
 
-	public Date getBeginTime() {
+	public String getBeginTime() {
 		return beginTime;
 	}
 
-	public void setBeginTime(Date beginTime) {
+	public void setBeginTime(String beginTime) {
 		this.beginTime = beginTime;
 	}
 
-	public Date getEndTime() {
+	public String getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Date endTime) {
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
 
@@ -82,11 +91,11 @@ public class Exam implements Serializable{
 		this.question = question;
 	}
 
-	public Date getCreateTime() {
+	public String getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
 
