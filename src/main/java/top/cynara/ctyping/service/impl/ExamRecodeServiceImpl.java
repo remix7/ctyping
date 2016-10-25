@@ -3,6 +3,7 @@ package top.cynara.ctyping.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import top.cynara.ctyping.entitiy.ExamRecode;
 import top.cynara.ctyping.entitiy.mapper.ExamRecodeMapper;
@@ -15,6 +16,7 @@ import top.cynara.ctyping.service.ExamRecodeService;
  * @date 2016年10月21日 下午8:26:44
  * @version V1.0
  */
+@Service("ExamRecodeService")
 public class ExamRecodeServiceImpl implements ExamRecodeService {
 
 	@Autowired

@@ -3,6 +3,7 @@ package top.cynara.ctyping.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import top.cynara.ctyping.entitiy.Score;
 import top.cynara.ctyping.entitiy.mapper.ScoreMapper;
@@ -15,6 +16,7 @@ import top.cynara.ctyping.service.ScoreService;
  * @date 2016年10月21日 下午4:47:29
  * @version V1.0
  */
+@Service("ScoreService")
 public class ScoreServiceImpl implements ScoreService {
 
 	@Autowired

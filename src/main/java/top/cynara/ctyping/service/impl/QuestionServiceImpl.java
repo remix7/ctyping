@@ -3,6 +3,7 @@ package top.cynara.ctyping.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import top.cynara.ctyping.entitiy.Question;
 import top.cynara.ctyping.entitiy.mapper.QuestionMapper;
@@ -15,6 +16,7 @@ import top.cynara.ctyping.service.QuestionService;
  * @date 2016年10月21日 下午8:52:36 
  * @version V1.0
  */
+@Service("QuestionService")
 public class QuestionServiceImpl implements QuestionService {
 	
 	@Autowired
