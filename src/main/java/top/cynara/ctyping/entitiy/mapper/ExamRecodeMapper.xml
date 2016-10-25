@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="top.cynara.ctyping.entitiy.mapper.ExamRecodeMapper">
-	<cache />
 	<resultMap type="ExamRecode" id="baseResultMap">
 		<id property="id" column="id" />
 		<result property="content" column="content" />
@@ -32,7 +31,7 @@
 	<update id="update" parameterType="ExamRecode">
 		UPDATE ctyping_exam_recodes
 		SET
-		ExamRecodename=#{ExamRecodename},password=#{password},realname=#{realname},stuNum=#{stuNum},phoneNum=#{phoneNum},email=#{email},createTime=#{createTime},state=#{state},remarks=#{remarks}
+		exam_id=#{exam.id},user_id=#{user.id},content=#{content},useTime=#{useTime},updateTime=#{updateTime},state=#{state},remarks=#{remarks}
 		WHERE id=${id}
 	</update>
 	<select id="findById" parameterType="int" resultMap="baseResultMap">
