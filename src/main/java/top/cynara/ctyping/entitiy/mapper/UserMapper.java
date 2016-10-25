@@ -2,6 +2,8 @@ package top.cynara.ctyping.entitiy.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import top.cynara.ctyping.entitiy.User;
 
 /**
@@ -51,4 +53,13 @@ public interface UserMapper {
 	 * @Date 2016年10月21日 下午12:38:28
 	 */
 	User findById(Integer id);
+	/**
+	 * @Title findByUserName 
+	 * @Description 根据usernama查询
+	 * @param username
+	 * @return       
+	 * @author Cynara-remix
+	 * @Date 2016年10月25日 下午8:14:36
+	 */
+	User findByUserName(@Param("username")String username);
 }
