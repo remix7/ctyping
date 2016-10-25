@@ -44,4 +44,5 @@ public interface UserService {
 	 * @Date 2016年10月21日 下午12:38:28
 	 */
 	User findById(Integer id);
+	User findByUserName(String username);
 }
