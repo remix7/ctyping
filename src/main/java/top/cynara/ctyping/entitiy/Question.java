@@ -1,7 +1,8 @@
 package top.cynara.ctyping.entitiy;
 
 import java.io.Serializable;
-import java.util.Date;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * @ClassName Question
@@ -10,16 +11,18 @@ import java.util.Date;
  * @date 2016年10月20日 下午11:53:05
  * @version V1.0
  */
-public class Question implements Serializable{
+public class Question implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	/*
 	 * 标题
 	 */
+	@NotEmpty
 	private String title;
 	/*
 	 * 内容
 	 */
+	@NotEmpty
 	private String content;
 	/*
 	 * 难易程度
@@ -32,7 +35,7 @@ public class Question implements Serializable{
 	/*
 	 * 创建时间
 	 */
-	private Date createTime;
+	private String createTime;
 	/*
 	 * 状态
 	 */
@@ -40,6 +43,7 @@ public class Question implements Serializable{
 	/*
 	 * 备注
 	 */
+	@NotEmpty
 	private String remarks;
 
 	public Integer getId() {
@@ -82,11 +86,11 @@ public class Question implements Serializable{
 		this.contentLength = contentLength;
 	}
 
-	public Date getCreateTime() {
+	public String getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
 
