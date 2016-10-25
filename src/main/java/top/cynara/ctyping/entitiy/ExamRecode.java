@@ -1,7 +1,6 @@
 package top.cynara.ctyping.entitiy;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @ClassName ExamRecode
@@ -32,7 +31,7 @@ public class ExamRecode implements Serializable {
 	/*
 	 * 更新时间
 	 */
-	private Date updateTime;
+	private String updateTime;
 	/*
 	 * 状态
 	 */
@@ -82,11 +81,11 @@ public class ExamRecode implements Serializable {
 		this.useTime = useTime;
 	}
 
-	public Date getUpdateTime() {
+	public String getUpdateTime() {
 		return updateTime;
 	}
 
-	public void setUpdateTime(Date updateTime) {
+	public void setUpdateTime(String updateTime) {
 		this.updateTime = updateTime;
 	}
 
