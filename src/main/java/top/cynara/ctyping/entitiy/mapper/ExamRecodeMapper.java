@@ -21,4 +21,6 @@ public interface ExamRecodeMapper {
 	ExamRecode findById(Integer id);
 
 	List<ExamRecode> findAll();
+	
+	List<ExamRecode> findByUserId(Integer id);
 }

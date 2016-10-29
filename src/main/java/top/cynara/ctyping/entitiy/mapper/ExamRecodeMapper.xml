@@ -5,6 +5,8 @@
 		<id property="id" column="id" />
 		<result property="content" column="content" />
 		<result property="useTime" column="useTime" />
+		<result property="score" column="score"/>
+		<result property="accuracy" column="accuracy"/>
 		<result property="updateTime" column="updateTime" />
 		<result property="state" column="state" />
 		<result property="remarks" column="remarks" />
@@ -19,9 +21,9 @@
 	</resultMap>
 	<insert id="insert" parameterType="ExamRecode">
 		INSERT INTO
-		ctyping_exam_recodes(exam_id,user_id,content,useTime,updateTime,state,remarks)
+		ctyping_exam_recodes(exam_id,user_id,content,useTime,score,accuracy,updateTime,state,remarks)
 		VALUES
-		(#{exam.id},#{user.id},#{content},#{useTime},#{updateTime},#{state},#{remarks})
+		(#{exam.id},#{user.id},#{content},#{useTime},#{score},#{accuracy},#{updateTime},#{state},#{remarks})
 	</insert>
 	<delete id="delete" parameterType="int">
 		DELETE FROM
@@ -31,7 +33,7 @@
 	<update id="update" parameterType="ExamRecode">
 		UPDATE ctyping_exam_recodes
 		SET
-		exam_id=#{exam.id},user_id=#{user.id},content=#{content},useTime=#{useTime},updateTime=#{updateTime},state=#{state},remarks=#{remarks}
+		exam_id=#{exam.id},user_id=#{user.id},content=#{content},useTime=#{useTime},score=#{score},accuracy=#{accuracy},updateTime=#{updateTime},state=#{state},remarks=#{remarks}
 		WHERE id=${id}
 	</update>
 	<select id="findById" parameterType="int" resultMap="baseResultMap">
@@ -44,5 +46,9 @@
 		ctyping_exam_recodes cer,ctyping_exams ce,ctyping_users cu WHERE
 		cer.exam_id=ce.id AND cer.user_id=cu.id
 	</select>
-
+	<select id="findByUserId" resultMap="baseResultMap" parameterType="int">
+		SELECT * FROM
+		ctyping_exam_recodes cer,ctyping_exams ce,ctyping_users cu WHERE
+		cer.exam_id=ce.id AND cer.user_id=cu.id AND cer.user_id=#{id}
+	</select>
 </mapper>
