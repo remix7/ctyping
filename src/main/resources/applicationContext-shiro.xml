@@ -15,8 +15,16 @@
 
 	<!-- securityManager 安全管理器 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-		<!-- 注入自定义realm -->
-		<property name="realm" ref="userRealm"></property>
+		<!-- 注入自定义realm <property name="realm" ref="userRealm"></property> -->
+		<!-- -->
+		<property name="authenticator" ref="defineModularRealmAuthenticator"></property>
+		<property name="realms">
+			<list>
+				<ref bean="userRealm" />
+				<ref bean="customerRealm" />
+			</list>
+		</property>
+
 		<!-- 注入缓存管理器 -->
 		<property name="cacheManager" ref="cacheManager"></property>
 		<!-- 注入sessionManager -->
@@ -32,35 +40,50 @@
 		<property name="filters">
 			<map>
 				<!-- UserFormA|uthenticationFilter 注入自定义表单认证验证器 -->
-				<entry key="authc" value-ref="userFormAuthenticationFilter"></entry>				
+				<entry key="authc" value-ref="userFormAuthenticationFilter"></entry>
 			</map>
 		</property>
 		<!-- loginURL 认证提交地址 -->
 		<property name="loginUrl" value="/login"></property>
-		<!-- 认证成功转向的地址 建议不配置
-		<property name="successUrl" value="/first.action"></property>
-		 -->
+		<!-- 认证成功转向的地址 建议不配置 <property name="successUrl" value="/first.action"></property> -->
 		<!-- unauthorizedUrl无权限地址 -->
 		<property name="unauthorizedUrl" value="/refuse.jsp"></property>
 		<!-- 过滤器链定义 以上往下执行 一啊不能/**在最下面 -->
 		<property name="filterChainDefinitions">
 			<value>
 				/=anon
-				/index.jsp=anon
+				/customer/typingtest=anon
+				/customer/register=anon
 				/source/**=anon
 				/ValidateCode = anon
-				/logout**=logout
-				/home=user
+				/logout=logout
 				/**=authc
 			</value>
 		</property>
 	</bean>
-	<!-- 配置自定义realmbean -->
-	<bean id="userRealm" class="top.cynara.ctyping.shiro.UserRealm" >
+	<!-- 配置admin自定义realmbean -->
+	<bean id="userRealm" class="top.cynara.ctyping.shiro.UserRealm">
 		<property name="credentialsMatcher" ref="credentialsMatcher"></property>
 	</bean>
+	<!-- customer自定义realmbeab -->
+	<bean id="customerRealm" class="top.cynara.ctyping.shiro.CustomerRealm">
+		<property name="credentialsMatcher" ref="credentialsMatcher"></property>
+	</bean>
+	<!-- 修改分离前后台开始 -->
+	<bean id="defineModularRealmAuthenticator"
+		class="top.cynara.ctyping.shiro.DefineModularRealmAuthenticator">
+		<property name="defineRealms">
+			<map>
+				<entry key="customerRealm" value-ref="customerRealm"></entry>
+				<entry key="userRealm" value-ref="userRealm"></entry>
+			</map>
+		</property>
+	</bean>
+
+	<!-- 修改分离前后台结束 -->
 	<!-- 配置realm支持散列 -->
-	<bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+	<bean id="credentialsMatcher"
+		class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
 		<property name="hashAlgorithmName" value="md5"></property>
 		<property name="hashIterations" value="2"></property>
 	</bean>
@@ -75,16 +98,14 @@
 		<property name="cacheManagerConfigFile" value="classpath:shiro-ehcache.xml"></property>
 	</bean>
 	<!-- 配置session管理器 -->
-	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+	<bean id="sessionManager"
+		class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
 		<!-- 配置session的失效时间 毫秒 -->
 		<property name="globalSessionTimeout" value="600000"></property>
 		<!-- 删除失效的session -->
 		<property name="deleteInvalidSessions" value="true"></property>
 	</bean>
-	<!--
-		 自定义 FOrm验证器
-		 基于form表单身份认证过滤器，不配置也会注册此过滤器，表单中的用户账号密码loginurl将采用默认值建议配 
-	-->
+	<!-- 自定义 FOrm验证器 基于form表单身份认证过滤器，不配置也会注册此过滤器，表单中的用户账号密码loginurl将采用默认值建议配 -->
 	<bean id="userFormAuthenticationFilter" class="top.cynara.ctyping.shiro.UserFormAuthenticationFilter">
 		<!-- 在这里可以修改自定义表单字段名 -->
 		<property name="usernameParam" value="username"></property>
@@ -99,8 +120,13 @@
 	<!-- rememberMeCookie 配置 -->
 	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
 		<!-- cookie的名字 -->
-		<constructor-arg value="rememberMe"/>
+		<constructor-arg value="rememberMe" />
 		<!-- cookie 生效时间30天 -->
 		<property name="maxAge" value="2592000"></property>
+		<property name="path" value="/"></property>
+		<property name="name" value="jid"></property>
 	</bean>
+	<!-- 设置异常 <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"> 
+		<property name="exceptionMappings"> <props> <prop key="org.apache.shiro.authz.UnauthorizedException">/refuse</prop> 
+		</props> </property> </bean> -->
 </beans>
