@@ -42,4 +42,8 @@ public class ExamRecodeServiceImpl implements ExamRecodeService {
 		return mapper.findAll();
 	}
 
+	public List<ExamRecode> findByUserId(Integer id) {
+		return mapper.findByUserId(id);
+	}
+
 }
