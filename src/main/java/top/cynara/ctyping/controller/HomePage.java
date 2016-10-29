@@ -4,6 +4,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,14 +33,14 @@ public class HomePage {
 	 * @author Cynara-remix
 	 * @Date 2016年10月10日 下午5:24:31
 	 */
-	@RequestMapping("/**/home")
+	@RequestMapping("/admin/home")
 	public String home(HttpSession session) throws Exception {
-		// 从shiZro的session中取出activeUser
-		Subject subject = SecurityUtils.getSubject();
-		// 取出身份信息
-		ActiveUser activeUser = (ActiveUser) subject.getPrincipal();
-		session.setAttribute("activeUser", activeUser);
-		log.debug(activeUser.getUsername() + ":登录成功！");
+		// // 从shiro的session中取出activeUser
+		// Subject subject = SecurityUtils.getSubject();
+		// // 取出身份信息
+		// ActiveUser activeUser = (ActiveUser) subject.getPrincipal();
+		// session.setAttribute("activeUser", activeUser);
+		// log.debug(activeUser.getUsername() + ":登录成功！");
 		return "home";
 	}
 }

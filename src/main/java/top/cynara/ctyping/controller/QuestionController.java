@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -31,12 +32,14 @@ public class QuestionController {
 	@Autowired
 	private QuestionService questionService;
 
+	@RequiresPermissions("question:delete")
 	@RequestMapping(value = "/question/{id}", method = RequestMethod.DELETE)
 	public String delete(@PathVariable("id") Integer id) {
 		questionService.delete(id);
 		return "redirect:/questionList";
 	}
 
+	@RequiresPermissions("question:insert")
 	@RequestMapping(value = "/question", method = RequestMethod.POST)
 	public String save(@Valid Question question, BindingResult result, Map<String, Object> map) {
 		if (result.getAllErrors().size() != 0) {
@@ -58,7 +61,7 @@ public class QuestionController {
 		return "questionUpdate";
 
 	}
-
+	@RequiresPermissions("question:update")
 	@RequestMapping(value = "/question/{id}", method = RequestMethod.PUT)
 	public String update(@PathVariable("id") Integer id, @Valid Question question, BindingResult result,
 			Map<String, Object> map) {
@@ -87,7 +90,7 @@ public class QuestionController {
 		map.put("question", question);
 		return "questionUpdate";
 	}
-
+	@RequiresPermissions("question:list")
 	@RequestMapping("/questionList")
 	public String questionList(Map<String, Object> map) {
 		List<Question> qList = questionService.findAll();
