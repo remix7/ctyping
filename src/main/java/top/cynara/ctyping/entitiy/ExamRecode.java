@@ -33,6 +33,14 @@ public class ExamRecode implements Serializable {
 	 */
 	private String updateTime;
 	/*
+	 * 分数
+	 */
+	private String score;
+	/*
+	 * 正确率
+	 */
+	private String accuracy;
+	/*
 	 * 状态
 	 */
 	private String state;
@@ -103,6 +111,22 @@ public class ExamRecode implements Serializable {
 
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+
+	public String getScore() {
+		return score;
+	}
+
+	public void setScore(String score) {
+		this.score = score;
+	}
+
+	public String getAccuracy() {
+		return accuracy;
+	}
+
+	public void setAccuracy(String accuracy) {
+		this.accuracy = accuracy;
 	}
 
 }

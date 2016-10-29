@@ -45,6 +45,7 @@ public class Score implements Serializable {
 	 * 状态
 	 */
 	private String createTime;
+	
 	private String state;
 	/*
 	 * 备注
