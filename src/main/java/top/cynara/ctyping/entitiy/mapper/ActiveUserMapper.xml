@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.cynara.ctyping.entitiy.mapper.ActiveUserMapper">
+	<cache />
+	<select id="findAllMenuBySysUserId" parameterType="int"
+		resultType="Permission">
+		SELECT id,NAME,TYPE,url,percode,avaliable FROM
+		ctyping_permission WHERE TYPE = 'menu' AND id IN (
+		SELECT permission_id FROM ctyping_role_permission WHERE role_id = (
+		SELECT role_id FROM ctyping_user_role WHERE user_id = #{id}))
+	</select>
+	<select id="findAllPermissionByUserId" parameterType="int"
+		resultType="Permission">
+		SELECT id,NAME,TYPE,url,percode,avaliable FROM
+		ctyping_permission WHERE TYPE = 'permission' AND id IN (
+		SELECT
+		permission_id FROM ctyping_role_permission WHERE role_id = (
+		SELECT
+		role_id FROM ctyping_user_role WHERE user_id = #{id}))
+	</select>
+</mapper>
