@@ -4,6 +4,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 
 /**
@@ -34,4 +36,20 @@ public class UserFormAuthenticationFilter extends FormAuthenticationFilter {
 		}
 		return super.onAccessDenied(request, response);
 	}
+	/**
+	 * 构造token   
+	 */
+	@Override
+	protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) {
+		UsernamePasswordToken createToken = (UsernamePasswordToken) super.createToken(request, response);
+		String path = request.getServletContext().getContextPath();
+		CaptchaAuthenticationToken token = new CaptchaAuthenticationToken(createToken.getUsername(), createToken.getPassword(), createToken.isRememberMe(), createToken.getHost(), "");
+		if("/ctyping".equals(path)){
+			token.setLoginType(LoginEnum.ADMIN.toString());
+		}else{
+			token.setLoginType(LoginEnum.CUSTOMER.toString());
+		}
+		return token;
+	}
+	
 }
