@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import top.cynara.ctyping.entitiy.Exam;
 import top.cynara.ctyping.entitiy.ExamRecode;
 import top.cynara.ctyping.entitiy.mapper.ExamRecodeMapper;
 import top.cynara.ctyping.service.ExamRecodeService;
@@ -22,8 +23,8 @@ public class ExamRecodeServiceImpl implements ExamRecodeService {
 	@Autowired
 	private ExamRecodeMapper mapper;
 
-	public void insert(ExamRecode examRecode) {
-		mapper.insert(examRecode);
+	public int insert(ExamRecode examRecode) {
+		return mapper.insert(examRecode);
 	}
 
 	public void delete(Integer id) {
@@ -44,6 +45,10 @@ public class ExamRecodeServiceImpl implements ExamRecodeService {
 
 	public List<ExamRecode> findByUserId(Integer id) {
 		return mapper.findByUserId(id);
+	}
+
+	public ExamRecode findByUidAndUdt(Integer uid, String udt) {
+		return mapper.findByUidAndUdt(uid, udt);
 	}
 
 }

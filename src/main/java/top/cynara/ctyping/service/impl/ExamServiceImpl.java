@@ -42,4 +42,12 @@ public class ExamServiceImpl implements ExamService {
 		return mapper.findAll();
 	}
 
+	public List<Exam> findAllTest() {
+		return mapper.findAllTest();
+	}
+
+	public List<Exam> findAllExam() {
+		return mapper.findAllExam();
+	}
+
 }
