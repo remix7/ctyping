@@ -2,6 +2,7 @@ package top.cynara.ctyping.entitiy.mapper;
 
 import java.util.List;
 
+import top.cynara.ctyping.entitiy.Exam;
 import top.cynara.ctyping.entitiy.ExamRecode;
 
 /**
@@ -12,7 +13,7 @@ import top.cynara.ctyping.entitiy.ExamRecode;
  * @version V1.0
  */
 public interface ExamRecodeMapper {
-	void insert(ExamRecode examRecode);
+	int insert(ExamRecode examRecode);
 
 	void delete(Integer id);
 
@@ -23,4 +24,6 @@ public interface ExamRecodeMapper {
 	List<ExamRecode> findAll();
 	
 	List<ExamRecode> findByUserId(Integer id);
+	
+	ExamRecode findByUidAndUdt(Integer uid,String udt);
 }
