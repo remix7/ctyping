@@ -32,6 +32,14 @@ public class QuestionController {
 	@Autowired
 	private QuestionService questionService;
 
+	/**
+	 * @Title delete 
+	 * @Description 删除问题 需要权限：question:delete
+	 * @param id
+	 * @return       
+	 * @author Cynara-remix
+	 * @Date 2016年11月4日 下午4:10:13
+	 */
 	@RequiresPermissions("question:delete")
 	@RequestMapping(value = "/question/{id}", method = RequestMethod.DELETE)
 	public String delete(@PathVariable("id") Integer id) {
@@ -39,6 +47,16 @@ public class QuestionController {
 		return "redirect:/questionList";
 	}
 
+	/**
+	 * @Title save 
+	 * @Description 后台 添加 权限 需要 question:insert 
+	 * @param question
+	 * @param result
+	 * @param map
+	 * @return       
+	 * @author Cynara-remix
+	 * @Date 2016年11月4日 下午4:09:47
+	 */
 	@RequiresPermissions("question:insert")
 	@RequestMapping(value = "/question", method = RequestMethod.POST)
 	public String save(@Valid Question question, BindingResult result, Map<String, Object> map) {
@@ -61,6 +79,17 @@ public class QuestionController {
 		return "questionUpdate";
 
 	}
+	/**
+	 * @Title update 
+	 * @Description 后台 更新问题  需要权限question:update
+	 * @param id
+	 * @param question
+	 * @param result
+	 * @param map
+	 * @return       
+	 * @author Cynara-remix
+	 * @Date 2016年11月4日 下午4:09:20
+	 */
 	@RequiresPermissions("question:update")
 	@RequestMapping(value = "/question/{id}", method = RequestMethod.PUT)
 	public String update(@PathVariable("id") Integer id, @Valid Question question, BindingResult result,
@@ -84,12 +113,29 @@ public class QuestionController {
 		return "redirect:/questionList";
 	}
 
+	/**
+	 * @Title updateUi 
+	 * @Description 后台 转向更新问题页面 
+	 * @param id
+	 * @param map
+	 * @return       
+	 * @author Cynara-remix
+	 * @Date 2016年11月4日 下午4:08:57
+	 */
 	@RequestMapping(value = "/question/{id}", method = RequestMethod.GET)
 	public String updateUi(@PathVariable("id") Integer id, Map<String, Object> map) {
 		Question question = questionService.findById(id);
 		map.put("question", question);
 		return "questionUpdate";
 	}
+	/**
+	 * @Title questionList 
+	 * @Description 后台 列出所有问题 需要question:list 权限
+	 * @param map
+	 * @return       
+	 * @author Cynara-remix
+	 * @Date 2016年11月4日 下午4:01:02
+	 */
 	@RequiresPermissions("question:list")
 	@RequestMapping("/questionList")
 	public String questionList(Map<String, Object> map) {
