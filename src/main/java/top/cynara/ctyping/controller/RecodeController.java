@@ -43,17 +43,34 @@ public class RecodeController {
 	private UserService userService;
 	@Autowired
 	private ExamService examService;
-	
+
+	/**
+	 * @Title customerrecord
+	 * @Description 查询当前用户的做题记录
+	 * @param session
+	 * @param map
+	 * @return
+	 * @author Cynara-remix
+	 * @Date 2016年11月4日 下午4:36:41
+	 */
 	@RequestMapping("/customer/recorde")
-	public String customerrecord(HttpSession session,Map<String, Object> map){
+	public String customerrecord(HttpSession session, Map<String, Object> map) {
 		ActiveUser user = (ActiveUser) session.getAttribute("activeUser");
 		List<ExamRecode> erList = recodeService.findByUserId(user.getId());
 		map.put("erList", erList);
 		return "customer/recorde";
-		
+
 	}
-	
-	
+
+	/**
+	 * @Title ajaxPut
+	 * @Description 后台接收 练习或者测试中发来的记录 并处理
+	 * @param recode
+	 * @param response
+	 * @throws Exception
+	 * @author Cynara-remix
+	 * @Date 2016年11月4日 下午4:30:52
+	 */
 	@ResponseBody
 	@RequestMapping("/ajaxput")
 	public void ajaxPut(ExamRecode recode, HttpServletResponse response) throws Exception {
@@ -65,7 +82,8 @@ public class RecodeController {
 		response.addHeader("Cache-Control", "no-cache");
 		response.addHeader("Cache-Control", "no-store");
 		response.setDateHeader("Expires", 0);
-		ExamRecode oldRecode = recodeService.findById(recode.getId());
+		System.out.println(recode.getId());
+		// ExamRecode oldRecode = recodeService.findById(recode.getId());
 		User user = null;
 		Exam exam = null;
 		try {
@@ -74,41 +92,32 @@ public class RecodeController {
 		} catch (Exception e) {
 			response.getOutputStream().write("error".getBytes());
 		}
-		// 如果这个用户不存在就直接return
-		if (user == null) {
-			return;
-		}
-		// 能走到这说明用户存在
-		if (oldRecode == null) {
-			oldRecode = new ExamRecode();
-			oldRecode.setAccuracy(recode.getAccuracy());
-			oldRecode.setContent(new String(recode.getContent().getBytes("ISO-8859-1"),"UTF-8"));
-			oldRecode.setExam(exam);
-			oldRecode.setRemarks("-");
-			oldRecode.setScore(recode.getScore());
-			oldRecode.setState("1");
-			oldRecode.setUpdateTime(new Date().toLocaleString());
-			oldRecode.setUser(user);
-			oldRecode.setUseTime(recode.getUseTime());
-			recodeService.insert(oldRecode);
+		recode.setAccuracy(recode.getAccuracy());
+		recode.setContent(new String(recode.getContent().getBytes("ISO-8859-1"), "UTF-8"));
+		recode.setExam(exam);
+		recode.setUpdateTime(new Date().toLocaleString());
+		recode.setUser(user);
+		recode.setState("1");
+		if (exam.getState().equals("1")) {
+			recode.setRemarks("打字练习");
 		} else {
-			oldRecode.setAccuracy(recode.getAccuracy());
-			oldRecode.setContent(new String(recode.getContent().getBytes("ISO-8859-1"),"UTF-8"));
-			oldRecode.setExam(exam);
-			oldRecode.setRemarks(recode.getRemarks());
-			oldRecode.setScore(recode.getScore());
-			oldRecode.setState(recode.getState());
-			oldRecode.setUpdateTime(new Date().toLocaleString());
-			oldRecode.setUser(user);
-			oldRecode.setUseTime(recode.getUseTime());
-			recodeService.update(oldRecode);
+			recode.setRemarks("考试考试");
 		}
-		//成功
+
+		recodeService.update(recode);
 		response.getOutputStream().write("ok".getBytes());
 		response.getOutputStream().flush();
 		response.getOutputStream().close();
 	}
-	
+
+	/**
+	 * @Title realRecode
+	 * @Description 后台 查看实时记录
+	 * @param response
+	 * @throws IOException
+	 * @author Cynara-remix
+	 * @Date 2016年11月4日 下午4:14:30
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/realRecode", produces = "application/json; charset=utf-8")
 	public void realRecode(HttpServletResponse response) throws IOException {
@@ -127,17 +136,42 @@ public class RecodeController {
 		out.flush();
 	}
 
+	/**
+	 * @Title recode
+	 * @Description 后台 转向实时记录页面
+	 * @return
+	 * @author Cynara-remix
+	 * @Date 2016年11月4日 下午4:14:10
+	 */
 	@RequestMapping("/recode")
 	public String recode() {
 		return "recode";
 	}
 
+	/**
+	 * @Title delte
+	 * @Description 后台 删除记录 需要权限 recode:delete
+	 * @param id
+	 * @return
+	 * @author Cynara-remix
+	 * @Date 2016年11月4日 下午4:12:34
+	 */
+	@RequiresPermissions("recode:delete")
 	@RequestMapping(value = "/recode/{id}", method = RequestMethod.DELETE)
 	public String delte(@PathVariable("id") Integer id) {
 		recodeService.delete(id);
 		return "redirect:/recodeList";
 
 	}
+
+	/**
+	 * @Title recodeList
+	 * @Description 后台 查看所有记录 需要权限 recode:list
+	 * @param map
+	 * @return
+	 * @author Cynara-remix
+	 * @Date 2016年11月4日 下午4:10:43
+	 */
 	@RequiresPermissions("recode:list")
 	@RequestMapping("/recodeList")
 	public String recodeList(Map<String, Object> map) {
