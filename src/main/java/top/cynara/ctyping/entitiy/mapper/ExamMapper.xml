@@ -10,7 +10,7 @@
 		<result property="state" column="state"/>
 		<result property="remarks" column="remarks"/>
 		<association property="question" javaType="Question">
-			<id property="id" column="id"/>
+			<id property="id" column="question_id"/>
 			<result property="title" column="title"/>
 		</association>
 	</resultMap>
@@ -34,5 +34,10 @@
 	<select id="findAll" resultMap="baseResultMap">
 		SELECT * FROM ctyping_exams ce,ctyping_questions cq WHERE ce.question_id=cq.id
 	</select>
-
-</mapper>
+	<select id="findAllTest" resultMap="baseResultMap">
+		SELECT * FROM ctyping_exams ce,ctyping_questions cq WHERE ce.question_id=cq.id AND ce.state='1'
+	</select>
+	<select id="findAllExam" resultMap="baseResultMap">
+		SELECT * FROM ctyping_exams ce,ctyping_questions cq WHERE ce.question_id=cq.id AND ce.state='2'
+	</select>
+</mapper> 
