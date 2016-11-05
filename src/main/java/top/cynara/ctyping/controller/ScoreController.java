@@ -27,6 +27,14 @@ public class ScoreController {
 	@Autowired
 	private ScoreService scoreService;
 
+	/**
+	 * @Title score 
+	 * @Description 后台 获取全部成绩  需要score:list 权限
+	 * @param map
+	 * @return       
+	 * @author Cynara-remix
+	 * @Date 2016年11月4日 下午4:39:38
+	 */
 	@RequiresPermissions("score:list")
 	@RequestMapping("/score")
 	public String score(Map<String, Object> map) {
