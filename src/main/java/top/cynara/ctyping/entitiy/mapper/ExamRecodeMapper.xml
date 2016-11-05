@@ -11,15 +11,15 @@
 		<result property="state" column="state" />
 		<result property="remarks" column="remarks" />
 		<association property="exam" javaType="Exam">
-			<id property="id" column="id" />
+			<id property="id" column="exam_id" />
 			<result property="name" column="name" />
 		</association>
 		<association property="user" javaType="User">
-			<id property="id" column="id" />
+			<id property="id" column="user_id" />
 			<result property="realname" column="realname" />
 		</association>
 	</resultMap>
-	<insert id="insert" parameterType="ExamRecode">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="ExamRecode" >
 		INSERT INTO
 		ctyping_exam_recodes(exam_id,user_id,content,useTime,score,accuracy,updateTime,state,remarks)
 		VALUES
@@ -50,5 +50,10 @@
 		SELECT * FROM
 		ctyping_exam_recodes cer,ctyping_exams ce,ctyping_users cu WHERE
 		cer.exam_id=ce.id AND cer.user_id=cu.id AND cer.user_id=#{id}
+	</select>
+	<select id="findByUidAndUdt" resultMap="baseResultMap">
+		SELECT * FROM
+		ctyping_exam_recodes cer,ctyping_exams ce,ctyping_users cu WHERE
+		cer.exam_id=ce.id AND cer.user_id=cu.id AND cer.user_id=#{0} AND cer.updateTime=#{1}
 	</select>
 </mapper>
