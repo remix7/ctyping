@@ -21,4 +21,8 @@ public interface ExamMapper {
 	Exam findById(Integer id);
 
 	List<Exam> findAll();
+	
+	List<Exam> findAllTest();
+	
+	List<Exam> findAllExam();
 }
