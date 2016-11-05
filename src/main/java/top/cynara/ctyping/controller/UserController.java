@@ -38,7 +38,15 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	
+	/**
+	 * @Title info 
+	 * @Description 前台获取用户信息
+	 * @param map
+	 * @param session
+	 * @return       
+	 * @author Cynara-remix
+	 * @Date 2016年11月4日 下午8:19:56
+	 */
 	@RequestMapping("/customer/info")
 	public String info(Map<String, Object> map,HttpSession session){
 		ActiveUser user = (ActiveUser) session.getAttribute("activeUser");
@@ -110,7 +118,17 @@ public class UserController {
 		return "redirect:/userList";
 
 	}
-
+	/**
+	 * @Title update 
+	 * @Description 后台处理用户更新 需要权限：user:update
+	 * @param user
+	 * @param result
+	 * @param map
+	 * @param id
+	 * @return       
+	 * @author Cynara-remix
+	 * @Date 2016年11月4日 下午8:19:26
+	 */
 	@RequiresPermissions("user:update")
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
 	public String update(@Valid User user, BindingResult result, Map<String, Object> map,
@@ -137,6 +155,15 @@ public class UserController {
 
 	}
 
+	/**
+	 * @Title updateUi 
+	 * @Description 后台 获取用户更新页面
+	 * @param id
+	 * @param map
+	 * @return       
+	 * @author Cynara-remix
+	 * @Date 2016年11月4日 下午8:14:09
+	 */
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
 	public String updateUi(@PathVariable("id") Integer id, Map<String, Object> map) {
 		User user = userService.findById(id);
@@ -144,6 +171,14 @@ public class UserController {
 		return "userUpdate";
 	}
 
+	/**
+	 * @Title userList 
+	 * @Description 后台获取注册用户列表 需要权限user:list 
+	 * @param map
+	 * @return       
+	 * @author Cynara-remix
+	 * @Date 2016年11月4日 下午4:50:39
+	 */
 	@RequiresPermissions("user:list")
 	@RequestMapping("/userList")
 	public String userList(Map<String, Object> map) {
@@ -153,7 +188,16 @@ public class UserController {
 		return "userlist";
 
 	}
-
+	/**
+	 * @Title login 
+	 * @Description 判断用户是否登录出错
+	 * @param request
+	 * @param session
+	 * @return
+	 * @throws Exception       
+	 * @author Cynara-remix
+	 * @Date 2016年11月4日 下午4:50:16
+	 */
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request, HttpSession session) throws Exception {
 		// 如果登录失败 从request中获取认证信息shiroLoginFailure 就是异常类的全类名
