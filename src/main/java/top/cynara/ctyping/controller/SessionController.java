@@ -1,7 +1,6 @@
 package top.cynara.ctyping.controller;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -11,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import top.cynara.ctyping.entitiy.ActiveUser;
 
 /**
  * @ClassName SessionController
