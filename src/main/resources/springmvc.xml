@@ -30,6 +30,7 @@
 	<!-- 配置必要 加载静态资源等 -->
 	<mvc:default-servlet-handler />
 	<mvc:annotation-driven></mvc:annotation-driven>
+	<mvc:resources location="/source/" mapping="/source/**"/>
 	<!-- 开启类aop代理 -->
 	<aop:config proxy-target-class="true"></aop:config>
 	<!-- 文件上传配置 -->

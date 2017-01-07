@@ -39,7 +39,7 @@ public class HashUtil {
 		return new Sha1Hash(password, salt, 2).toString();
 	}
 	public static void main(String[] args) {
-		System.out.println(getMd5Hash("cynara", "cynara"));
+		System.out.println(getMd5Hash("admin", "admin"));
 	}
 	
 }

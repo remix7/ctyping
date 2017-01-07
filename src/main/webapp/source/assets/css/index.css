@@ -1,0 +1,115 @@
+@media only screen and (min-width: 1200px) {
+	.blog-g-fixed {
+		max-width: 1200px;
+	}
+}
+
+@media only screen and (min-width: 641px) {
+	.blog-sidebar {
+		font-size: 1.4rem;
+	}
+}
+
+.blog-main {
+	padding: 20px 0;
+}
+
+.blog-title {
+	margin: 10px 0 20px 0;
+}
+
+.blog-meta {
+	font-size: 14px;
+	margin: 10px 0 20px 0;
+	color: #222;
+}
+
+.blog-meta a {
+	color: #27ae60;
+}
+
+.blog-pagination a {
+	font-size: 1.4rem;
+}
+
+.blog-team li {
+	padding: 4px;
+}
+
+.blog-team img {
+	margin-bottom: 0;
+}
+
+.blog-content img, .blog-team img {
+	max-width: 100%;
+	height: auto;
+}
+
+.blog-footer {
+	padding: 10px 0;
+	text-align: center;
+	position: fixed;
+	bottom: 0;
+	left: 40%;
+}
+
+.module, .module1 {
+	width: 350px;
+	height: 150px;
+	margin: 0 auto;
+	background-color: #fffaf5;
+	border: 1px solid #e6e1dc;
+	background-image: -o-linear-gradient(bottom, #ffffff 0%, #fffaf5 100%);
+	background-image: -moz-linear-gradient(bottom, #ffffff 0%, #fffaf5 100%);
+	background-image: -webkit-linear-gradient(bottom, #ffffff 0%, #fffaf5 100%);
+	background-image: -ms-linear-gradient(bottom, #ffffff 0%, #fffaf5 100%);
+	background-image: linear-gradient(to bottom, #ffffff 0%, #fffaf5 100%);
+	-webkit-box-shadow: inset 0 1px 0 #ffffff;
+	-moz-box-shadow: inset 0 1px 0 #ffffff;
+	box-shadow: inset 0 1px 0 #ffffff;
+	text-shadow: 0 1px 0 #ffffff;
+	cursor: pointer;
+	color: #666666;
+	/*vertical-align:middle;*/
+	padding: 3%;
+}
+
+.module:hover {
+	width: 350px;
+	height: 150px;
+	margin: 0 auto;
+	background-color: #92d3d9;
+	border: 1px solid #79bac0;
+	background-image: -o-linear-gradient(bottom, #abecf2 0%, #92d3d9 100%);
+	background-image: -moz-linear-gradient(bottom, #abecf2 0%, #92d3d9 100%);
+	background-image: -webkit-linear-gradient(bottom, #abecf2 0%, #92d3d9 100%);
+	background-image: -ms-linear-gradient(bottom, #abecf2 0%, #92d3d9 100%);
+	background-image: linear-gradient(to bottom, #abecf2 0%, #92d3d9 100%);
+	-webkit-box-shadow: inset 0 1px 0 #c4ffff;
+	-moz-box-shadow: inset 0 1px 0 #c4ffff;
+	box-shadow: inset 0 1px 0 #c4ffff;
+	text-shadow: 0 1px 0 #c4ffff;
+	color: #666666;
+	/*vertical-align:middle;*/
+	padding: 3%;
+}
+
+.module1:hover {
+	width: 350px;
+	height: 150px;
+	margin: 0 auto;
+	background-color: #f2a7d1;
+	border: 1px solid #d98eb8;
+	background-image: -o-linear-gradient(bottom, #ffc0ea 0%, #f2a7d1 100%);
+	background-image: -moz-linear-gradient(bottom, #ffc0ea 0%, #f2a7d1 100%);
+	background-image: -webkit-linear-gradient(bottom, #ffc0ea 0%, #f2a7d1 100%);
+	background-image: -ms-linear-gradient(bottom, #ffc0ea 0%, #f2a7d1 100%);
+	background-image: linear-gradient(to bottom, #ffc0ea 0%, #f2a7d1 100%);
+	-webkit-box-shadow: inset 0 1px 0 #ffd9ff;
+	-moz-box-shadow: inset 0 1px 0 #ffd9ff;
+	box-shadow: inset 0 1px 0 #ffd9ff;
+	text-shadow: 0 1px 0 #ffd9ff;
+	color: #666666;
+	/*vertical-align:middle;*/
+	padding: 3%;
+}

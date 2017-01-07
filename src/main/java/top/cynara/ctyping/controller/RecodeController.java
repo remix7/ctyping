@@ -89,25 +89,26 @@ public class RecodeController {
 		try {
 			user = userService.findById(recode.getUser().getId());
 			exam = examService.findById(recode.getExam().getId());
+			recode.setAccuracy(recode.getAccuracy());
+			recode.setContent(new String(recode.getContent().getBytes("ISO-8859-1"), "UTF-8"));
+			recode.setExam(exam);
+			recode.setUpdateTime(new Date().toLocaleString());
+			recode.setUser(user);
+			recode.setState("1");
+			if (exam.getState().equals("1")) {
+				recode.setRemarks("打字练习");
+			} else {
+				recode.setRemarks("考试考试");
+			}
+
+			recodeService.update(recode);
+			response.getOutputStream().write("ok".getBytes());
 		} catch (Exception e) {
 			response.getOutputStream().write("error".getBytes());
+		}finally{
+			response.getOutputStream().flush();
+			response.getOutputStream().close();
 		}
-		recode.setAccuracy(recode.getAccuracy());
-		recode.setContent(new String(recode.getContent().getBytes("ISO-8859-1"), "UTF-8"));
-		recode.setExam(exam);
-		recode.setUpdateTime(new Date().toLocaleString());
-		recode.setUser(user);
-		recode.setState("1");
-		if (exam.getState().equals("1")) {
-			recode.setRemarks("打字练习");
-		} else {
-			recode.setRemarks("考试考试");
-		}
-
-		recodeService.update(recode);
-		response.getOutputStream().write("ok".getBytes());
-		response.getOutputStream().flush();
-		response.getOutputStream().close();
 	}
 
 	/**
